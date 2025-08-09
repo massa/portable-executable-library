@@ -79,7 +79,7 @@ static void pe_test_error(const std::exception& e,
 #define PE_TEST_EXPECT_EXCEPTION(expression, pe_exception_code, test_name, level) \
 	try \
 	{ \
-		(expression); \
+		(void) (expression); \
 		std::cerr << "Expected exception: " << PE_TEST_TO_STRING(pe_exception_code) << std::endl; \
 		pe_test_print_error(test_name, level, PE_TEST_TO_STRING(expression), __FILE__, __LINE__); \
 	} \
@@ -93,7 +93,7 @@ static void pe_test_error(const std::exception& e,
 
 
 #ifndef PE_FILES_UNUSED
-static bool open_pe_file(int argc, char* argv[], std::auto_ptr<std::ifstream>& pe_file)
+static bool open_pe_file(int argc, char* argv[], std::unique_ptr<std::ifstream>& pe_file)
 {
 	if(argc != 2)
 	{

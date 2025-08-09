@@ -38,14 +38,14 @@ uint32_t calculate_checksum(std::istream& file)
 
 		//Calculate checksum for each byte of file
 		std::streamoff filesize = pe_utils::get_file_size(file);
-		for(long long i = 0; i < filesize; i += 4)
+		for(std::streamoff i = 0; i < filesize; i += 4)
 		{
 			unsigned long dw = 0;
 
 			//Read DWORD from file
 			file.read(reinterpret_cast<char*>(&dw), sizeof(unsigned long));
 			//Skip "CheckSum" DWORD
-			if(i == pe_checksum_pos)
+			if(i == (std::streamoff) pe_checksum_pos)
 				continue;
 
 			//Calculate checksum
